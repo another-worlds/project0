@@ -6,7 +6,7 @@ class Post(models.Model):
     pub_date = models.DateTimeField('Date published', auto_now=True)
     score = models.IntegerField(default=0)
     
-    def to_str(self):
+    def __str__(self):
         return f"Post titled '{self.title} published on {self.pub_date} with {self.score} score"
 
 class Comment(models.Model):
@@ -16,5 +16,5 @@ class Comment(models.Model):
     score = models.IntegerField(default = 0)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     
-    def to_str(self):
+    def __str__(self):
         return f"Comment to the {self.post} post by {self.author} published on {self.pub_date} with {self.score}"
