@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, Http404
+from django.template import loader
 
 from .models import Post, Comment
 
@@ -11,28 +12,21 @@ def view_item(score, title, tag="h3"):
 # View 5 latest posts 
 def index(request):
     posts = Post.objects.order_by('-pub_date')[:5]
-    result = []
-    for i in range(len(posts)):
-        result.append(view_item(posts[i].score, posts[i].title))
-    "<br>".join(result)
-    return HttpResponse(result)
+    context = { 'posts' : posts }
+    template = loader.get_template('myapp/index.html')
+    return HttpResponse(template.render(context, request))
 
 # View selected post and it's comments
 def details(request, post_id):
+    template = loader.get_template('myapp/details.html')
+    
     try:
         post = Post.objects.get(id=post_id)
-        comments = post.comment_set.all()
-        result = []
-        result.append(view_item(post.score, post.title))
-        if comments:
-            for comment in comments:
-                result.append(view_item(comment.score, comment.author, tag='h4'))
-        else:
-            result.append("Post wasn't commented yet")
+        comments = post.comment_set.order_by('score')
     except Post.DoesNotExist:
         raise Http404
-    "<br>".join(result)
-    return HttpResponse(result)
+    context = {'post': post, 'comments': comments}
+    return HttpResponse(template.render(context, request))
 
 
 def upvote(request, post_id):

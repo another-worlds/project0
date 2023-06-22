@@ -1,0 +1,21 @@
+{% extends 'myapp/base.html' %}
+{% block title %}{{post.title}}{% endblock title %}
+{% block content %}
+<h2><b>{{ post.score}} </b> | {{ post.title }}</h2>
+<h3>Posted on {{post.pub_date}}</h3> 
+<p>{{post.text}}</p>
+<hr>
+{% if comments %}
+    <ul>
+    {% for comment in comments %}
+        <li><h3><b>{{comment.score}}</b> | {{comment.author}}</h3> 
+            <b><i>Posted on {{comment.pub_date}}</i><b>
+            <p>{{ comment.text }}</p>   
+        </li>
+        <hr>
+    {% endfor %}
+    </ul>
+{% else %}
+<b><i>This post wasn't commented yet</i></b>
+{% endif %}
+{% endblock content %}

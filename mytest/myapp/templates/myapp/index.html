@@ -1,0 +1,17 @@
+{% extends 'myapp/base.html' %}
+{% block title %}Posts{% endblock title %}
+{% block content %}
+    <h1>Available posts:</h1>
+    <hr>
+    <ul>
+    {% if posts %}
+        {% for post in posts  %}
+            <li><h2><b>{{post.score}}</b>  | <a href="{% url 'myapp:details_url' post.id %}">{{post.title}}</a> </li>
+            Posted on {{post.pub_date}}
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h1><b>No posts yet!<b><h1>
+    {% endif %}
+    </ul>
+{% endblock content %}
