@@ -34,13 +34,7 @@ def details(request, post_id):
     "<br>".join(result)
     return HttpResponse(result)
 
-def about(request):
-    return HttpResponse("""
-                        <ul>
-                        <li><a href="https://github.com/another-worlds/project0">Github page of the project</a></li>
-                        <li><a href="https://docs.google.com/document/d/1d3aU0Vxowz8SOUG6LLcozmLCe--OiDvnVS69Dhko2_U/edit?usp=sharing">To-do list of the project on PythonAnywhere</a></li>
-                        </ul>
-                        """)
+
 def upvote(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
@@ -57,3 +51,11 @@ def downvote(request, post_id):
     except Post.DoesNotExist:
         raise Http404
     return redirect('details_url', post_id)
+
+def about(request):
+    return HttpResponse("""
+                        <ul>
+                        <li><a href="https://github.com/another-worlds/project0">Github page of the project</a></li>
+                        <li><a href="https://docs.google.com/document/d/1d3aU0Vxowz8SOUG6LLcozmLCe--OiDvnVS69Dhko2_U/edit?usp=sharing">To-do list of the project on PythonAnywhere</a></li>
+                        </ul>
+                        """)
