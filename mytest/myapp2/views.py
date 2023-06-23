@@ -1,6 +1,19 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.template import loader
+
+from django.http import HttpResponse, Http404
+
+from .models import MyModel, MySubmodel
+
 
 # Create your views here.
 def index(request):
-    return HttpResponse('<h1> YOU ARE HERE </h1>')
+    try:
+        posts = MyModel.objects.all()
+    except MyModel.DoesNotExist:
+        return Http404
+    context = {"posts":posts}
+    
+    template = loader.get_template('myapp2/index.html')
+    return HttpResponse(template.render(context, request))
+    

@@ -1,0 +1,11 @@
+{% block title %}Models{% endblock title %}
+{% block content %}
+<h1>Available posts:</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2><b>{{post.score}}</b> | {{post.text}}</h2>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
