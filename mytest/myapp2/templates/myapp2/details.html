@@ -1,0 +1,11 @@
+{% block title %}{{model.text}}{% endblock title %}
+{% block content %}
+    <h1><b>{{model.score}}</b> | {{model.text}}</h1>
+    <hr>
+    <h2><b>Comments: {{submodels|length}}</b></h2>
+    <ul>
+    {% for submodel in submodels %}
+        <li><b>{{submodel.score}}</b> | {{submodel.text}}</li>
+    {% endfor %}
+    </ul>
+{% endblock content %}
