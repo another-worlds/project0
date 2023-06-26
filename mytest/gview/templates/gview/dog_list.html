@@ -1,0 +1,14 @@
+{% extends 'gview/base.html' %}
+{% load static %}
+{% block title %}List of {{ model_name }} {% endblock title %}
+{% block content %}
+<hr>
+<ul>
+    {% for dog in dog_list %}
+    <li>
+        <h1><a href = {% url 'gview:dog_details_url' dog.id %}><b>{{ dog.score }} | {{dog.name}}</h1></b><img src={% static dog.image.url %} alt={{dog.name}}></a></li>
+        <hr>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock content %}

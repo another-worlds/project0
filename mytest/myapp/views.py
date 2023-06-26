@@ -47,3 +47,5 @@ def downvote(request, post_id):
 
 def about(request):
     template = loader.get_template('myapp/about.html')
+    context= {}
+    return HttpResponse(template.render(context, request))

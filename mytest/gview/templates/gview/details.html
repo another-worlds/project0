@@ -1,0 +1,7 @@
+{% extends 'gview/base.html' %}
+{% block title %}{{ model.name }}{% endblock title %}
+{% block content %}
+<form action={% url 'gview:vote' model.id %}>
+
+</form>
+{% endblock content %}
