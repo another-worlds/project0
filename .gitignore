@@ -1,0 +1,7 @@
+.pyc
+/migrations
+.jpg
+/static
+/media
+/pptx
+.sqlite3
