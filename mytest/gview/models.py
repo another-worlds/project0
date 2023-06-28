@@ -5,7 +5,7 @@ from django.db import models
 class Owner(models.Model):
     name = models.CharField(max_length=28)
     score = models.IntegerField(default=0)
-    
+
 class Cat(models.Model):
     name = models.CharField(max_length=48)
     score = models.IntegerField(default=0)

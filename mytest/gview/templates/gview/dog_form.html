@@ -1,0 +1,16 @@
+{% load static %}
+<form action={% url 'gview:dog_vote_url' owner.id %} method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ owner.name }}'s Dogs</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        {% for dog in owner.dog_set.all|dictsortreversed:"score" %}
+            <input type="radio" name='dog' id="dog{{ forloop.counter }}" value="{{ dog.id }}">
+            <label for='dog{{ forloop.counter }}'>
+                <img src= {% static dog.image.url %} alt = {{ dog.name }}> 
+                <h1>{{  }}
+            </label><br>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="Vote">
+</form>

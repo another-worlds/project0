@@ -1,0 +1,22 @@
+{% extends 'gview/base.html' %}
+{% block title %}{{ owner.name }}{% endblock title %}
+{% block content %}
+{% load static %}
+<hr>
+<h1>Owner details:</h1>
+<h2><b>{{ owner.score }} | {{ owner.name }}</b></h2>
+<h3>Cat quantity : {{ owner.cat_set.all|length }}</h3>
+<h3>Dog quantity: {{ owner.dog_set.all|length }}</h3>
+
+{% if owner.cat_set.all|length %}
+{% include 'gview/cat_form.html' %}
+{% else %}
+    <h2>{{ owner.name }} has no cats </h2>
+{% endif %}
+
+{% if owner.dog_set.all|length %}
+{% include 'gview/dog_form.html' %}
+{% else %}
+    <h2>{{ owner.name }} has no dogs </h2>
+{% endif %}
+{% endblock content %}

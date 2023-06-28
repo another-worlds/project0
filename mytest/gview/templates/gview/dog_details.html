@@ -1,0 +1,7 @@
+{% extends 'gview/base.html' %}
+{% load static %}
+{% block title %}Dog{{ dog.name }}{% endblock title %}
+{% block content %}
+    <h1><b>{{ dog.score }} | {{ dog.name }} | Owner: {{ dog.owner.name}}</b></h1>
+    <img src={% static dog.image.url %} alt={{ dog.name }}>
+{% endblock content %}

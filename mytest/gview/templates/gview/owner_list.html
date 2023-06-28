@@ -1,0 +1,12 @@
+{% extends 'gview/base.html' %}
+{% block title %}Owner list{% endblock title %}
+{% block content %}
+    <hr>
+    <h1>Available owners:</h1>
+    <ul>
+    {% for owner in owner_list %}
+        <li><h1><b><a href = {% url 'gview:owner_details_url' owner.id %}>{{ owner.score }} | {{ owner.name }}</a></b></li>
+        <hr>
+    {% endfor %}
+    </ul>
+{% endblock content %}

@@ -1,0 +1,7 @@
+{% extends 'gview/base.html' %}
+{% load static %}
+{% block title %}Cat {{ owner.name }}{% endblock title %}
+{% block content %}
+    <h1><b>{{ owner.score }} | {{ owner.name }} | Owner: {{ owner.owns.name}}</b></h1>
+    <img src={% static owner.image.url %} alt={{ owner.name }}>
+{% endblock content %}
