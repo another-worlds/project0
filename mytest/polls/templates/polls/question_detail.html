@@ -1,0 +1,19 @@
+<form action={% url 'polls:question_vote_view' question.id %} method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{ question.question_text }} | {{ question.pub_date }}</h1></legend>
+        {% if error_message %}{{ error_message }}{% endif %}
+        <ul>
+        {% for choice in question.choice_set.all|dictsortreversed:"votes" %}
+            <li>
+            <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
+                <label for=choice{{ forloop.counter }}>
+                    <h3>{{ choice.votes }} | {{ choice.choice_text }}</h3>    
+                <label>
+            </input>
+            </li>
+        {% endfor %}
+        </ul>
+    </fieldset>
+    <input type="submit", value="Vote">
+</form>
