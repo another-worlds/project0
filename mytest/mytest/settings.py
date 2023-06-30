@@ -33,6 +33,7 @@ ALLOWED_HOSTS = [ '*' ]
 
 INSTALLED_APPS = [
     'home.apps.HomeConfig',
+    'hello.apps.HelloConfig',
     'gview.apps.GviewConfig',
     'myapp2.apps.Myapp2Config',
     'myapp.apps.MyappConfig',
