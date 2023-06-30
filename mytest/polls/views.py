@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from .models import Question, Choice
 
 def owner(request):
-    return HttpResponse("Hello, world. d26e5e36 is the polls owner.")
+    return HttpResponse("Hello, world. d26e5e36 is the polls owner.d26e5e36")
 
 
 class QuestionListView(generic.ListView):

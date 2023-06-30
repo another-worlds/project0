@@ -21,12 +21,12 @@ from django.views import generic
 
 
 urlpatterns = [
-    path('', generic.TemplateView.as_view(template_name='home/main.html')),
+    path('f', generic.TemplateView.as_view(template_name='home/main.html')),
     path('hello', include('hello.urls')),
     path('posts', include('myapp.urls')),
     path('app/', include('myapp2.urls')),
     path('gview/', include('gview.urls')),
-    path('polls/', include('polls.urls')),
+    path('', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]
 
