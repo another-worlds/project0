@@ -17,7 +17,7 @@ urlpatterns = [
     path('owner/<int:owner_id>/dog/vote', views.DogVoteView.as_view(), name='dog_vote_url'),
     
     # Owner views
-    path('owners/', views.OwnerListView.as_view(), name='owner_list_    url'),
+    path('', views.OwnerListView.as_view(), name='owner_list_    url'),
     path('owner/<int:owner_id>', views.OwnerDetailsView.as_view(), name='owner_details_url'),
     path('owner/vote', views.OwnerVoteView.as_view(), name='owner_vote_url'),
     

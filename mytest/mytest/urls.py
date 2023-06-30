@@ -22,8 +22,8 @@ from django.views import generic
 
 urlpatterns = [
     path('', generic.TemplateView.as_view(template_name='home/main.html')),
-    path('hello', include('hello.urls')),
-    path('posts', include('myapp.urls')),
+    path('hello/', include('hello.urls')),
+    path('posts/', include('myapp.urls')),
     path('app/', include('myapp2.urls')),
     path('gview/', include('gview.urls')),
     path('polls/', include('polls.urls')),
