@@ -14,6 +14,10 @@ class QuestionListView(generic.ListView):
     
 class QuestionDetailView(generic.DetailView):
     model = Question
+    
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
 
 class QuestionVoteView(View):
     def post(self, request, question_id):
@@ -31,4 +35,4 @@ class QuestionVoteView(View):
         else:
             choice.votes += 1
             choice.save()
-            return HttpResponseRedirect(reverse_lazy('polls:question_detail_url', args=(question.id,)))
+            return HttpResponseRedirect(reverse_lazy('polls:results_url', args=(question.id,)))
