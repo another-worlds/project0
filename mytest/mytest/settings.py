@@ -46,11 +46,23 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    
+    # Session middleware
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
+    #
     'django.middleware.common.CommonMiddleware',
+    
+    # CSRF middleware
     'django.middleware.csrf.CsrfViewMiddleware',
+    
+    #
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    
+    # Auth middleware
     'django.contrib.messages.middleware.MessageMiddleware',
+    
+    #
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 

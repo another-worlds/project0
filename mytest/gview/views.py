@@ -39,6 +39,23 @@ class MyDetailsView(View):
         # Render template
         return render(request, f"{url_prefix}/{template_name}.html", context)
 
+class OwnerVoteView(View):
+    def post(self, request):
+        # extract owner_id
+        
+        # try to get owner model
+        try:
+            owner = Owner.objects.get(pk=request.POST['owner'])
+        except (KeyError, Owner.DoesNotExist):
+            return render(request, 'gview/owner_list.html', {
+                "error_message" : "Please select the owner to vote"
+            })
+        else:
+            # Increment score, save changes and redirect back by GET method
+            owner.score += 1
+            owner.save()
+            return HttpResponseRedirect(reverse_lazy('gview:owner_list_url'))
+
 # Meta vote view
 class PetVoteView(View):
     pet = None
@@ -72,11 +89,6 @@ class PetVoteView(View):
             # Redirect with GET method to acoid POST request repeat
             return HttpResponseRedirect(reverse_lazy('gview:owner_details_url', args=(owner.id,)))
 
-class OwnerVoteView(View):
-    model = Owner
-    def post(self, request, **kwargs):
-        pass
-
 class MyVoteView(View):
     pass
 
@@ -87,8 +99,6 @@ class CatVoteView(PetVoteView):
     model = Cat
 class DogVoteView(PetVoteView):
     model = Dog
-class OwnerVoteView(MyVoteView):
-    model = Owner
 
 # Custom generic List Views
 class DogListView(MyListView):

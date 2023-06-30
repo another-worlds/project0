@@ -9,8 +9,8 @@
             <input type="radio" name='cat' id="cat{{ forloop.counter }}" value="{{ cat.id }}">
             {{ cat.cat_name }}
             <label for='cat{{ forloop.counter }}'>
-                <img heigh=200, width=200 src= {% static cat.image.url %} alt = {{ cat.name }}> 
                 <b>{{ cat.score }} | {{ cat.name }}</b>
+                <img heigh=200, width=200 src= {% static cat.image.url %} alt = {{ cat.name }}> 
             </label>
                 
         {% endfor %}

@@ -7,9 +7,9 @@
         {% for dog in owner.dog_set.all|dictsortreversed:"score" %}
             <input type="radio" name='dog' id="dog{{ forloop.counter }}" value="{{ dog.id }}">
             <label for='dog{{ forloop.counter }}'>
+                <b>{{ dog.score }} | {{ dog.name }}</b>
                 <img src= {% static dog.image.url %} alt = {{ dog.name }}> 
-                <h1>{{  }}
-            </label><br>
+            </label>
         {% endfor %}
     </fieldset>
     <input type="submit" value="Vote">

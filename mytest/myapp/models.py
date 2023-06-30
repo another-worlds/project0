@@ -5,7 +5,7 @@ class Post(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField('Date published', auto_now=True)
     score = models.IntegerField(default=0)
-    
+        
     def __str__(self):
         return f"Post titled '{self.title} published on {self.pub_date} with {self.score} score"
 

@@ -1,21 +1,22 @@
 {% extends 'myapp/base.html' %}
 {% block title %}{{post.title}}{% endblock title %}
 {% block content %}
-<h2><b>{{ post.score}} </b> | {{ post.title }}</h2>
-<h3>Posted on {{post.pub_date}}</h3> 
-<p>{{post.text}}</p>
-<hr>
-{% if comments %}
-    <ul>
-    {% for comment in comments %}
-        <li><h3><b>{{comment.score}}</b> | {{comment.author}}</h3> 
-            <b><i>Posted on {{comment.pub_date}}</i><b>
-            <p>{{ comment.text }}</p>   
-        </li>
-        <hr>
-    {% endfor %}
-    </ul>
-{% else %}
-<b><i>This post wasn't commented yet</i></b>
-{% endif %}
+<form action="{% url 'myapp:vote_url' post.id %}" method="post">
+    {% csrf_token %}
+    <legend>
+        <h1><b>{{ post.score }}</b> | {{ post.title }} - {{ post.text }}</h1>
+        <h2>posted on {{ post.pub_date }}</h2>
+        <h1>Choose the best comment:</h1>
+    </legend>
+    <fieldset>
+        {% if error_message %}<p><b>{{ error_message }}</b></p>{% endif %}
+        {% for comment in post.comment_set.all %}
+        <input type="radio" name="comment" id="comment{{ forloop.counter }}" value="{{ comment.id }}" >
+            <label for="{{ forloop.counter }}"><b>{{ comment.score }}</b> | {{ comment.author }} - {{ comment.text }}</label>
+            <br>
+        </input>
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value="vote">
+</form>
 {% endblock content %}

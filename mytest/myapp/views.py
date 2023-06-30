@@ -1,49 +1,50 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
+from django.views import View, generic
+from django.urls import reverse, reverse_lazy
 
 from .models import Post, Comment
 
 # Temporary helper function for handling untemplated responses
-def view_item(score, title, tag="h3"):
-    return f"<{tag}>{score} | {title}</{tag}>"
-
-
-# View 5 latest posts 
-def index(request):
-    posts = Post.objects.order_by('-pub_date')[:5]
-    context = { 'posts' : posts }
-    template = loader.get_template('myapp/index.html')
-    return HttpResponse(template.render(context, request))
 
 # View selected post and it's comments
-def details(request, post_id):
-    template = loader.get_template('myapp/details.html')
+class IndexView(generic.ListView):
+    model = Post
+    template_name = 'myapp/index.html'
+    #context_object_name = 'posts'
     
-    try:
-        post = Post.objects.get(id=post_id)
-        comments = post.comment_set.order_by('score')
-    except Post.DoesNotExist:
-        raise Http404
-    context = {'post': post, 'comments': comments}
-    return HttpResponse(template.render(context, request))
+    def get_queryset(self):
+        return Post.objects.order_by('-pub_date')[:5]
 
-def upvote(request, post_id):
+class DetailView(generic.DetailView):
+    model = Post
+    template_name= 'myapp/details.html'
+    
+def sessfun(request):
+    num_visits = request.session.get('num_visits', 0) + 1
+    request.session['num_visits'] = num_visits
+    if num_visits >= 4: del(request.session['num_visits'])
+    return HttpResponse("view_count: " + str(num_visits))
+
+def vote(request, post_id):
+    # Get Post id from GET
+    post = get_object_or_404(Post, pk=post_id)
+    # Get Comment id from POST
     try:
-        post = Post.objects.get(id=post_id)
-        post.score += 1
-        post.save()
-    except Post.DoesNotExist:
-        raise Http404
-    return redirect('myapp:details_url', post_id)
-def downvote(request, post_id):
-    try:
-        post = Post.objects.get(id=post_id)
-        post.score -= 1
-        post.save()
-    except Post.DoesNotExist:
-        raise Http404
-    return redirect('myapp:details_url', post_id)
+        comment = Comment.objects.get(pk=request.POST['comment'])
+    # Send error if no comment selected
+    except (KeyError, Comment.DoesNotExist):
+        return render(request, 'myapp/details.html', {
+            "post": post,
+            "error_message" : "ERROR: comment not selected."
+        })
+    # Increment score if comment found  
+    else:
+        comment.score += 1
+        comment.save()
+    # Redirect with GET method
+    return HttpResponseRedirect(reverse_lazy('myapp:details_url', args=(post.id,)))
 
 def about(request):
     template = loader.get_template('myapp/about.html')
