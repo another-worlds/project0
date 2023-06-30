@@ -3,8 +3,6 @@
 {% block title %}List of owners{% endblock title %}
 {% block content %}
 <ul>
-    {% for model in models %}
-        <li><img src={% static model.image.url %} alt={{model.name}}><b>{{model.name}}</b></li>
-    {% endfor %}
+    <li><p><a href="/polls">A Polls Application</a></p></li>
 </ul>
 {% endblock content %}

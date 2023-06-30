@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [ '*' ]
 # Application definition
 
 INSTALLED_APPS = [
+    'home.apps.HomeConfig',
     'gview.apps.GviewConfig',
     'myapp2.apps.Myapp2Config',
     'myapp.apps.MyappConfig',
