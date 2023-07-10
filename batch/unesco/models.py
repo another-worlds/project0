@@ -2,16 +2,16 @@ from django.db import models
 
 # Create your models here.
 class Iso(models.Model):
-    iso = models.CharField(max_length=4)
+    name = models.CharField(max_length=4)
     
 class Region(models.Model):
-    region = models.CharField(max_length=16)
+    name = models.CharField(max_length=16)
     
 class State(models.Model):
-    state = models.CharField(max_length=16)
+    name = models.CharField(max_length=16)
     
 class Category(models.Model):
-    category = models.CharField(max_length=16)
+    name = models.CharField(max_length=16)
     
 class Site(models.Model):
     name = models.TextField()
