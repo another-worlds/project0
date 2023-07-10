@@ -17,6 +17,12 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     votes = models.IntegerField(default=0)
     
+    def votes_status(self):
+        tag = 'neut'
+        if self.votes > 0: tag = 'pos'
+        elif self.votes < 0: tag = 'neg'
+        return tag
+    
     def __str__(self):
         return f'Choice with text "{self.choice_text}" with {self.votes} score'
     

@@ -19,9 +19,9 @@ from django.urls import path, include
 from django.conf.urls.static import static  
 from django.views import generic
 
-
+app_name='main'
 urlpatterns = [
-    path('', generic.TemplateView.as_view(template_name='home/main.html')),
+    path('', generic.TemplateView.as_view(template_name='home/main.html'), name='index_url'),
     path('hello/', include('hello.urls')),
     path('posts/', include('myapp.urls')),
     path('app/', include('myapp2.urls')),

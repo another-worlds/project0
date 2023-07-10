@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views import View, generic
+from django.template import loader
 from django.urls import reverse_lazy
 
 from .models import Question, Choice
@@ -36,3 +37,7 @@ class QuestionVoteView(View):
             choice.votes += 1
             choice.save()
             return HttpResponseRedirect(reverse_lazy('polls:results_url', args=(question.id,)))
+    
+def about(request):
+    template = loader.get_template('polls/about.html')
+    return HttpResponse(template.render({}, request))
